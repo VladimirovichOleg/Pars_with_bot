@@ -3,7 +3,7 @@ from aiogram.types import Message
 from aiogram.filters import Command
 import logging
 
-from bot_telegram.env import config_file
+from bot_telegram.config_bot import config_file
 from bot_telegram.filters.is_admins import IsAdmin
 from sqlite_db.async_db_execute import AsyncDbExecute
 
