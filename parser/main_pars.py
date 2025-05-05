@@ -4,9 +4,9 @@ from datetime import datetime
 import schedule
 
 from get_info import GetInfoGeneralPage, GetResp, check_and_get_info
-from env import config_file
+from pars_config import config_file
 from headers_for_requests import create_headers
-from sqlite_db.db_execute import DbExecute
+from sqlite_db import DbExecute
 from dict_of_path_of_tags import tags_into_a, tags_indiv_page, tags_gen_page_start
 from bot_telegram.heandlers.admin.error_pars import notify_error
 
@@ -21,7 +21,6 @@ def parsing():
     count_pag = GetInfoGeneralPage.count_pag()
 
     for number_of_page in range(1, count_pag + 1):
-        # print(f"Page {number_of_page}")
         sleep(1)
         url = f"{config_file['DOMAIN']}{config_file['CATALOG']}{config_file['PAGE']}{number_of_page}"
         first_bs4_obj = GetResp.bs4_obj_all_page(url, headers_=create_headers())
@@ -55,7 +54,7 @@ def parsing():
                         logger.info("Product %s has been updated", full_inform['name'])
 
         else:
-            notify_error(544514157, "Not find 'tags_a'")
+            notify_error(config_file['admin'], "Not find 'tags_a'")
             break
 
         if full_inform.get('in_stock') != 'В наявності':
@@ -69,7 +68,7 @@ def main():
     except Exception as ex:
         print("Parsing has not been started")
         logger.error("!!! Parsing has not been started  !!! str 66 %s", ex)
-        notify_error(544514157, "!!! Parsing has not been started  !!!")
+        notify_error(config_file['admin'], "!!! Parsing has not been started  !!!")
 
     schedule.every().day.at('08:00').do(parsing)
     while True:
@@ -78,5 +77,5 @@ def main():
         except Exception as ex:
             print("Parsing has been stopped")
             logger.error("!!! Parsing has been stopped !!!  %s", ex)
-            notify_error(544514157, "!!! Parsing has been stopped !!!")
+            notify_error(config_file['admin'], "!!! Parsing has been stopped !!!")
             break

@@ -4,8 +4,7 @@ import logging
 from aiogram import Bot, Dispatcher
 
 from config_bot import config_file
-from bot_telegram.heandlers.admin.admin_menu import admin_router
-from bot_telegram.heandlers.user.user_menu import user_router
+from bot_telegram import admin_router, user_router
 
 logger = logging.getLogger()
 FORMAT = "%(asctime)s %(name)s %(levelname)s %(message)s"

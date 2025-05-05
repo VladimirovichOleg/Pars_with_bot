@@ -2,7 +2,7 @@ import asyncio
 import logging
 from aiogram import Bot
 
-from bot_telegram.env import config_file
+from bot_telegram import config_file
 
 logger = logging.getLogger(__name__)
 

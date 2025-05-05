@@ -1,8 +1,7 @@
 from aiogram import Router, F
 from aiogram.types import Message
 
-from sqlite_db.async_db_execute import AsyncDbExecute
-
+from sqlite_db import AsyncDbExecute
 
 user_router = Router()
 find = AsyncDbExecute("tile_data")
@@ -28,4 +27,3 @@ async def find_product(message: Message):
 @user_router.message()
 async def find_product(message: Message):
     await message.answer(text="Для пошуку введіть назву або артикул товару.")
-
